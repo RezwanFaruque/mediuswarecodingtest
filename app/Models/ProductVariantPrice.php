@@ -7,4 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class ProductVariantPrice extends Model
 {
 
+
+    // making realtion with product table
+    public function product(){
+
+        return $this->belongsTo(Product::class,'product_id','id');
+    }
 }

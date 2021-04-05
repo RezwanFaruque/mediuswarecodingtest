@@ -8,7 +8,8 @@
 
 
     <div class="card">
-        <form action="" method="get" class="card-header">
+        <form action="{{route('product.filter')}}" method="POST" class="card-header">
+            @csrf
             <div class="form-row justify-content-between">
                 <div class="col-md-2">
                     <input type="text" name="title" placeholder="Product Title" class="form-control">
@@ -52,20 +53,27 @@
 
                     <tbody>
 
-                    <tr>
-                        <td>1</td>
-                        <td>T-Shirt <br> Created at : 25-Aug-2020</td>
-                        <td>Quality product in low cost</td>
+                    @foreach($products as $product)
+                        <tr>
+                        <td>{{$product->id}}</td>
+                        <td>{{$product->title}} <br> Created at : {{$product->created_at}}</td>
+                        <td>{{$product->description}}</td>
                         <td>
                             <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
 
                                 <dt class="col-sm-3 pb-0">
-                                    SM/ Red/ V-Nick
+                                    @foreach($product->variants as $variant)
+                                    {{$variant->variant}}/
+
+                                    @endforeach
                                 </dt>
                                 <dd class="col-sm-9">
                                     <dl class="row mb-0">
-                                        <dt class="col-sm-4 pb-0">Price : {{ number_format(200,2) }}</dt>
-                                        <dd class="col-sm-8 pb-0">InStock : {{ number_format(50,2) }}</dd>
+                                        @foreach($product->prices as $price)
+                                            <dt class="col-sm-4 pb-0">Price : {{ number_format($price->price,2) }}</dt>
+                                        <dd class="col-sm-8 pb-0">InStock : {{ number_format($price->stock,2) }}</dd>
+                                        @endforeach
+                                        
                                     </dl>
                                 </dd>
                             </dl>
@@ -73,10 +81,13 @@
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm">
-                                <a href="{{ route('product.edit', 1) }}" class="btn btn-success">Edit</a>
+                                <a href="{{ route('product.edit', $product->id) }}" class="btn btn-success">Edit</a>
                             </div>
                         </td>
                     </tr>
+                    @endforeach
+
+                    
 
                     </tbody>
 
@@ -91,7 +102,7 @@
                     <p>Showing 1 to 10 out of 100</p>
                 </div>
                 <div class="col-md-2">
-
+                    {{$products->links()}}
                 </div>
             </div>
         </div>

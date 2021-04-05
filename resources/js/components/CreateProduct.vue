@@ -24,7 +24,7 @@
                         <h6 class="m-0 font-weight-bold text-primary">Media</h6>
                     </div>
                     <div class="card-body border">
-                        <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
+                        <vue-dropzone ref="myVueDropzone"  id="dropzone" :options="dropzoneOptions"></vue-dropzone>
                     </div>
                 </div>
             </div>
@@ -102,6 +102,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import InputTag from 'vue-input-tag'
 
 export default {
+    
     components: {
         vueDropzone: vue2Dropzone,
         InputTag
@@ -110,6 +111,10 @@ export default {
         variants: {
             type: Array,
             required: true
+        },
+
+        products: {
+            type: Array,
         }
     },
     data() {
@@ -147,6 +152,9 @@ export default {
             })
         },
 
+
+
+       
         // check the variant and render all the combination
         checkVariant() {
             let tags = [];
@@ -201,7 +209,7 @@ export default {
 
     },
     mounted() {
-        console.log('Component mounted.')
+        console.log('Hello');
     }
 }
 </script>
