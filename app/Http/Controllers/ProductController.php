@@ -187,18 +187,29 @@ class ProductController extends Controller
 
         $product = Product::with('variants','prices');
 
-        // dd($products);
+        // dd('products.variants.title');
 
         if($request->title != ''){
             $title = $request->keyword;
 
-            $product->where('title','like', '%'.$title.'%');
+            $product->where('products.title','like', '%'.$title.'%');
         }
 
         if($request->price_from != ''){
 
-            $price_from = $request->price_from;
+            $price_from = [];
+            if (gettype($request->get('price_from')) == 'string') {
+                $price_from = json_decode($request->get('price_from'));
+            } elseif (gettype($request->get('price_from')) == 'array') {
+                $price_from = $request->get('price_from');
+            }
 
+            $price_from = $request->price_from;
+            $product->where(function ($query) use ($price_from) {
+                $query->whereHas('prices', function ($query) use ($price_from) {
+                    $query->whereIn('product_id', $price_from);
+                });
+            });
            
         }
 
