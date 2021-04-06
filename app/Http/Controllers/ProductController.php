@@ -197,7 +197,7 @@ class ProductController extends Controller
         if($request->title != ''){
             $title = $request->keyword;
 
-            $product->where('products.title','like', '%'.$title.'%');
+            $product->where('title','like', '%'.$title.'%');
         }
 
 

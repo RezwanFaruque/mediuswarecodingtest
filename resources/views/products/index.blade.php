@@ -9,6 +9,7 @@
 
     <div class="card">
         <form action="{{route('product.filter')}}" method="POST" class="card-header">
+            @method('POST')
             @csrf
             <div class="form-row justify-content-between">
                 <div class="col-md-2">
