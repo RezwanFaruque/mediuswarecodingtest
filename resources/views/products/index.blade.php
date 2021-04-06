@@ -17,7 +17,7 @@
                 <div class="col-md-2">
                     <select name="variant" name="variant" id="" class="form-control">
                         @foreach($variants as $variant)
-                            <option value="{{$variant->title}}">{{$variant->title}}</option>
+                            <option value="{{$variant->id}}">{{$variant->title}}</option>
                         @endforeach
                     </select>
                 </div>

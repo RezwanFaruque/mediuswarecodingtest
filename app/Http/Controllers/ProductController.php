@@ -189,7 +189,9 @@ class ProductController extends Controller
 
         
 
-        $product = Product::with('prices');
+        $product = Product::with('prices','variants');
+
+        // dd($product);
 
 
         if($request->title != ''){
@@ -207,7 +209,7 @@ class ProductController extends Controller
 
             $product->whereHas('prices', function ($query) use ($price_from , $price_to) {
                 $query->whereBetween('price', [$price_from,$price_to]);
-            })->with('prices')->get();
+            })->with('prices');
         }
 
         if($request->date != ''){
@@ -218,6 +220,15 @@ class ProductController extends Controller
 
         }
 
+        if($request->variant != ''){
+
+            $variant = $request->variant;
+
+            $product->whereHas('variants',function($query) use ($variant){
+                $query->where('variant_id',$variant);
+            });
+        }
+
              
 
         if($product){
@@ -225,8 +236,9 @@ class ProductController extends Controller
             $products = $product->paginate(2);
         }
         
+        $variants = Variant::all();
 
-        return view('products.index',compact('products'));
+        return view('products.index',compact('products','variants'));
 
 
     }

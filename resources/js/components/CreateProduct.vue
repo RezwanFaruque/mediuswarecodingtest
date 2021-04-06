@@ -210,9 +210,12 @@ export default {
 
 
             axios.post('/product', product).then(response => {
-                console.log(response.data);
+                if(response.status == 200){
+                    alert('Your Product Added');
+                }
+               
             }).catch(error => {
-                console.log(error);
+                alert(error);
             })
 
             console.log(product);

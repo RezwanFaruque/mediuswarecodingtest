@@ -2112,9 +2112,11 @@ __webpack_require__.r(__webpack_exports__);
         product_variant_prices: this.product_variant_prices
       };
       axios.post('/product', product).then(function (response) {
-        console.log(response.data);
+        if (response.status == 200) {
+          alert('Your Product Added');
+        }
       })["catch"](function (error) {
-        console.log(error);
+        alert(error);
       });
       console.log(product);
     }
