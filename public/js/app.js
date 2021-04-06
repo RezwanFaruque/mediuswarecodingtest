@@ -2012,6 +2012,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2024,7 +2025,8 @@ __webpack_require__.r(__webpack_exports__);
     variants: {
       type: Array,
       required: true
-    }
+    },
+    products: {}
   },
   data: function data() {
     return {
@@ -2100,6 +2102,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     // store product into database
     saveProduct: function saveProduct() {
+      console.log("testing");
       var product = {
         title: this.product_name,
         sku: this.product_sku,
@@ -2117,7 +2120,23 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    var _this2 = this;
+
+    this.product_name = this.$props.products.title;
+    this.product_sku = this.$props.products.sku;
+    this.description = this.$props.products.description;
+    this.$props.products.variants.forEach(function (element) {
+      _this2.product_variant.push({
+        option: element.id,
+        tags: [element.variant]
+      });
+    });
+    this.$props.products.prices.forEach(function (element) {
+      _this2.product_variant_prices.push({
+        price: element.price,
+        stock: element.stock
+      });
+    });
   }
 });
 
@@ -50478,7 +50497,7 @@ var render = function() {
         _c("div", { staticClass: "card shadow mb-4" }, [
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "form-group" }, [
-              _c("label", { attrs: { for: "" } }, [_vm._v("Product Name")]),
+              _c("label", { attrs: { for: "" } }, [_vm._v("Product Title")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -63056,9 +63075,13 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -63066,9 +63089,10 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ./sb-admin */ "./resources/js/sb-admin.js");
+__webpack_require__(/*! ./sb-admin */ "./resources/js/sb-admin.js"); // window.Vue = require('vue');
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -63079,14 +63103,14 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('create-product', __webpack_require__(/*! ./components/CreateProduct.vue */ "./resources/js/components/CreateProduct.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('create-product', __webpack_require__(/*! ./components/CreateProduct.vue */ "./resources/js/components/CreateProduct.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app'
 });
 
@@ -63300,8 +63324,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/rifat/Programming/mediusware/interview/interview-question-sr/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/rifat/Programming/mediusware/interview/interview-question-sr/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\LENOVO\Downloads\interview-question-sr\interview-question-sr\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\LENOVO\Downloads\interview-question-sr\interview-question-sr\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

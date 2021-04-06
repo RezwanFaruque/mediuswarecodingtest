@@ -21,11 +21,13 @@ class ProductController extends Controller
 
         // fetching products
 
+        $variants = Variant::all();
+
         $products = Product::with('variants')->with('prices')->paginate(2);
 
         // dd($products);
 
-        return view('products.index',compact('products'));
+        return view('products.index',compact('products','variants'));
     }
 
     /**
@@ -152,7 +154,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         
-        $products = Product::find($id)->with('variants')->with('prices')->first();
+        $products = Product::where('id',$id)->with('variants','prices')->first();
 
 
         $variants = Variant::all();
@@ -185,7 +187,7 @@ class ProductController extends Controller
 
     public function fileterProduct(Request $request){
 
-        // dd($request->all());
+        
 
         $product = Product::with('prices');
 

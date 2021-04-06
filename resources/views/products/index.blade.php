@@ -15,8 +15,10 @@
                     <input type="text" name="title" placeholder="Product Title" class="form-control">
                 </div>
                 <div class="col-md-2">
-                    <select name="variant" id="" class="form-control">
-
+                    <select name="variant" name="variant" id="" class="form-control">
+                        @foreach($variants as $variant)
+                            <option value="{{$variant->title}}">{{$variant->title}}</option>
+                        @endforeach
                     </select>
                 </div>
 

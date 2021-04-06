@@ -5,8 +5,9 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">{{products.title}}</label>
-                            <input type="text" v-model="product_name" placeholder="Product Name" class="form-control">
+                            <label for="">Product Title</label>
+
+                            <input type="text"  v-model="product_name" placeholder="Product Name" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="">Product SKU</label>
@@ -107,17 +108,22 @@ export default {
         vueDropzone: vue2Dropzone,
         InputTag
     },
-    props: [
-        variants: {
+
+    props: {
+
+         variants: {
             type: Array,
             required: true
         },
 
-        products: {
-            type: object,
-            required: true
+
+        products:{
+
         }
-    ],
+
+    },
+       
+
 
 
     data() {
@@ -210,12 +216,37 @@ export default {
             })
 
             console.log(product);
-        }
+        },
+
+        
 
 
     },
     mounted() {
-        // this.products;
+        this.product_name = this.$props.products.title;
+        this.product_sku = this.$props.products.sku;
+        this.description = this.$props.products.description;
+        
+        this.$props.products.variants.forEach(element =>{
+            
+            this.product_variant.push({
+                option: element.id,
+                tags: [element.variant],
+                
+            })
+        });
+
+        this.$props.products.prices.forEach(element =>{
+            this.product_variant_prices.push(
+                {
+
+                    price: element.price,
+                    stock: element.stock, 
+                }              
+            )
+        });
+
+
     }
 }
 </script>
