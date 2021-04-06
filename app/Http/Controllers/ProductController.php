@@ -195,9 +195,9 @@ class ProductController extends Controller
 
 
         if($request->title != ''){
-            $title = $request->keyword;
+            $title = $request->title;
 
-            $product->where('title','like', '%'.$title.'%');
+            $product->where('title','LIKE', '%'.$title.'%');
         }
 
 
@@ -216,7 +216,7 @@ class ProductController extends Controller
 
             $date = $request->date;
 
-            $product->where('products.created_at','like' , '%'.$date.'%');
+            $product->where('products.created_at','LIKE' , '%'.$date.'%');
 
         }
 
