@@ -128,6 +128,7 @@ export default {
 
     data() {
         return {
+            product_id : '',
             product_name: '',
             product_sku: '',
             description: '',
@@ -198,7 +199,10 @@ export default {
 
         // store product into database
         saveProduct() {
-            console.log("testing");
+
+
+            
+
             let product = {
                 title: this.product_name,
                 sku: this.product_sku,
@@ -207,48 +211,58 @@ export default {
                 product_variant: this.product_variant,
                 product_variant_prices: this.product_variant_prices
             }
-
-
+           
+            
             axios.post('/product', product).then(response => {
                 if(response.status == 200){
                     alert('Your Product Added');
                 }
                
-            }).catch(error => {
-                alert(error);
+                }).catch(error => {
+                    alert(error);
             })
 
+        
+
+           
             console.log(product);
         },
 
-        
+
+      
 
 
     },
+   
+
     mounted() {
-        this.product_name = this.$props.products.title;
-        this.product_sku = this.$props.products.sku;
-        this.description = this.$props.products.description;
-        
-        this.$props.products.variants.forEach(element =>{
+
             
-            this.product_variant.push({
-                option: element.id,
-                tags: [element.variant],
+
+            this.product_id = this.$props.products.id;
+        
+            this.product_name = this.$props.products.title;
+            this.product_sku = this.$props.products.sku;
+            this.description = this.$props.products.description;
+            
+            this.$props.products.variants.forEach(element =>{
                 
-            })
-        });
+                this.product_variant.push({
+                    option: element.id,
+                    tags: [element.variant],
+                    
+                })
+            });
 
-        this.$props.products.prices.forEach(element =>{
-            this.product_variant_prices.push(
-                {
+            this.$props.products.prices.forEach(element =>{
+                this.product_variant_prices.push(
+                    {
 
-                    price: element.price,
-                    stock: element.stock, 
-                }              
-            )
-        });
-
+                        price: element.price,
+                        stock: element.stock, 
+                    }              
+                )
+            });
 
     }
 }

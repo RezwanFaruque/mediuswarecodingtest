@@ -2030,6 +2030,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
+      product_id: '',
       product_name: '',
       product_sku: '',
       description: '',
@@ -2102,7 +2103,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     // store product into database
     saveProduct: function saveProduct() {
-      console.log("testing");
       var product = {
         title: this.product_name,
         sku: this.product_sku,
@@ -2124,6 +2124,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this2 = this;
 
+    this.product_id = this.$props.products.id;
     this.product_name = this.$props.products.title;
     this.product_sku = this.$props.products.sku;
     this.description = this.$props.products.description;

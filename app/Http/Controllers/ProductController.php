@@ -21,7 +21,7 @@ class ProductController extends Controller
 
         // fetching products
 
-        $variants = Variant::all();
+        $variants = ProductVariant::all();
 
         $products = Product::with('variants')->with('prices')->paginate(2);
 
@@ -170,7 +170,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        
     }
 
     /**
@@ -225,7 +225,7 @@ class ProductController extends Controller
             $variant = $request->variant;
 
             $product->whereHas('variants',function($query) use ($variant){
-                $query->where('variant_id',$variant);
+                $query->where('variant','LIKE', '%'.$variant.'%');
             });
         }
 
@@ -236,7 +236,7 @@ class ProductController extends Controller
             $products = $product->paginate(2);
         }
         
-        $variants = Variant::all();
+        $variants = ProductVariant::all();
 
         return view('products.index',compact('products','variants'));
 

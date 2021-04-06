@@ -16,9 +16,38 @@
                     <input type="text" name="title" placeholder="Product Title" class="form-control">
                 </div>
                 <div class="col-md-2">
+
+                    @php
+                     $displaysize = [];
+                     $displaycolor = [];
+                    @endphp
+                    @foreach($variants as $variant)
+
+                        @php
+                            $size = explode("/", $variant->variant);
+
+                            array_push($displaysize, $size[0]);
+                            array_push($displaycolor, $size[1]);
+                            
+                        @endphp
+                            
+                    @endforeach
+
+                    @php
+                        $r_displaysize = array_unique($displaysize);
+
+                        $r_displaycolor = array_unique($displaycolor);
+
+                    @endphp
+
                     <select name="variant" name="variant" id="" class="form-control">
-                        @foreach($variants as $variant)
-                            <option value="{{$variant->id}}">{{$variant->title}}</option>
+                        @foreach($r_displaysize as $size)
+                            <option value="{{$size}}">{{$size}}</option>
+
+                        @endforeach
+
+                        @foreach($r_displaycolor as $color)
+                            <option value="{{$color}}">{{$color}}</option>
                         @endforeach
                     </select>
                 </div>
