@@ -185,9 +185,10 @@ class ProductController extends Controller
 
     public function fileterProduct(Request $request){
 
-        $product = Product::with('variants','prices');
+        // dd($request->all());
 
-        // dd('products.variants.title');
+        $product = Product::with('prices');
+
 
         if($request->title != ''){
             $title = $request->keyword;
@@ -195,38 +196,33 @@ class ProductController extends Controller
             $product->where('products.title','like', '%'.$title.'%');
         }
 
-        if($request->price_from != ''){
 
-            $price_from = [];
-            if (gettype($request->get('price_from')) == 'string') {
-                $price_from = json_decode($request->get('price_from'));
-            } elseif (gettype($request->get('price_from')) == 'array') {
-                $price_from = $request->get('price_from');
-            }
-
+        if($request->price_from != '' && $request->price_to != ''){
+            
             $price_from = $request->price_from;
-            $product->where(function ($query) use ($price_from) {
-                $query->whereHas('prices', function ($query) use ($price_from) {
-                    $query->whereIn('product_id', $price_from);
-                });
-            });
-           
+
+            $price_to = $request->price_to;
+
+            $product->whereHas('prices', function ($query) use ($price_from , $price_to) {
+                $query->whereBetween('price', [$price_from,$price_to]);
+            })->with('prices')->get();
         }
-
-        if($request->price_to != ''){
-
-        }
-
 
         if($request->date != ''){
 
+            $date = $request->date;
+
+            $product->where('products.created_at','like' , '%'.$date.'%');
+
         }
+
+             
 
         if($product){
 
             $products = $product->paginate(2);
-
         }
+        
 
         return view('products.index',compact('products'));
 

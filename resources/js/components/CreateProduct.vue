@@ -5,7 +5,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="">Product Name</label>
+                            <label for="">{{products.title}}</label>
                             <input type="text" v-model="product_name" placeholder="Product Name" class="form-control">
                         </div>
                         <div class="form-group">
@@ -102,21 +102,24 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import InputTag from 'vue-input-tag'
 
 export default {
-    
+
     components: {
         vueDropzone: vue2Dropzone,
         InputTag
     },
-    props: {
+    props: [
         variants: {
             type: Array,
             required: true
         },
 
         products: {
-            type: Array,
+            type: object,
+            required: true
         }
-    },
+    ],
+
+
     data() {
         return {
             product_name: '',
@@ -129,6 +132,8 @@ export default {
                     tags: []
                 }
             ],
+
+           
             product_variant_prices: [],
             dropzoneOptions: {
                 url: 'https://httpbin.org/post',
@@ -187,6 +192,7 @@ export default {
 
         // store product into database
         saveProduct() {
+            console.log("testing");
             let product = {
                 title: this.product_name,
                 sku: this.product_sku,
@@ -209,7 +215,7 @@ export default {
 
     },
     mounted() {
-        console.log('Hello');
+        // this.products;
     }
 }
 </script>
